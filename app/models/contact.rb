@@ -16,7 +16,11 @@ class Contact < ApplicationRecord
     {
       id: id,
       full_name: full_name,
+      first_name: first_name,
+      last_name: last_name,
+      middle_name: middle_name,
       email: email,
+      bio: bio,
       phone_number: phone_number,
       japan_phone_number: japan_phone_number,
       updated_at: friendly_updated_at

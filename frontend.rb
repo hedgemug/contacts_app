@@ -4,11 +4,11 @@ system "clear"
 
 puts "You have engaged your Contacts Program"
 puts "Please, choose an option: "
-puts "      [1] Show all contacts"
-puts "      [2] Show one contact"
-puts "      [3] Create a new contact"
-puts "      [4] Update a contact"
-puts "      [5] Destroy a contact"
+puts "[1] Show all contacts"
+puts "[2] Show one contact"
+puts "[3] Create a new contact"
+puts "[4] Update a contact"
+puts "[5] Destroy a contact"
 
 input_option = gets.chomp
 system "clear"
@@ -40,6 +40,12 @@ elsif input_option == "3"
   print "Phone Number: "
   client_params[:phone_number] = gets.chomp
 
+  print "Middle Name: "
+  client_params[:middle_name] = gets.chomp
+
+  print "Bio: "
+  client_params[:bio] = gets.chomp
+
   response = Unirest.post(
                           "http://localhost:3000/contacts",
                           parameters: client_params
@@ -67,6 +73,12 @@ elsif input_option == "4"
 
   print "Phone Number (#{contact["phone_number"]}): "
   client_params[:phone_number] = gets.chomp
+
+  print "Middle Name (#{contact["middle_name"]}): "
+  client_params[:middle_name] = gets.chomp
+
+  print "Bio (#{contact["bio"]}): "
+  client_params[:bio] = gets.chomp
 
   client_params.delete_if {|key, value| value.empty? }
 
