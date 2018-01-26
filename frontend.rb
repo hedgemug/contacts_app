@@ -5,16 +5,24 @@ system "clear"
 puts "You have engaged your Contacts Program"
 puts "Please, choose an option: "
 puts "[1] Show all contacts"
+puts "[1.5] Search contact by first name"
 puts "[2] Show one contact"
 puts "[3] Create a new contact"
 puts "[4] Update a contact"
-puts "[5] Destroy a contact"
+puts "[5] Destroy a contÎact"
 
 input_option = gets.chomp
 system "clear"
 
 if input_option == "1"
   response = Unirest.get("http://localhost:3000/contacts")
+  contacts = response.body
+  puts JSON.pretty_generate(contacts)
+elsif input_option == "1.5"
+  puts "Enter search term: "
+  search = gets.chomp
+  puts "Here are all the matching contacts: "
+  response = Unirest.get("http://localhost:3000/contacts?search=#{search}")
   contacts = response.body
   puts JSON.pretty_generate(contacts)
 elsif input_option == "2"
