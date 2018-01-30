@@ -1,13 +1,17 @@
 class ContactsController < ApplicationController
   def index
-    contacts = Contact.all
+    if current_user
+      contacts = current_user.contacts #returns array of all the current users contacts
 
-    search = params[:search]
-    if search
-      contacts = contacts.where("first_name LIKE ? OR last_name LIKE ? OR email LIKE ? OR bio LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
+      # search = params[:search]
+      # if search
+      #   contacts = contacts.where("first_name LIKE ? OR last_name LIKE ? OR email LIKE ? OR bio LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
+      # end
+
+      render json: contacts.as_json
+    else
+      render json: []
     end
-
-    render json: contacts.as_json
   end
 
   def create
@@ -17,7 +21,8 @@ class ContactsController < ApplicationController
       email: params[:email],
       phone_number: params[:phone_number],
       middle_name: params[:middle_name],
-      bio: params[:bio]
+      bio: params[:bio],
+      user_id: current_user.id
     )
     if contact.save
       # happy path
